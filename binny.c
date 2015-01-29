@@ -392,7 +392,7 @@ void handleInput(int c)
                 return;
             }
             resizeBuffer(strtol(userInput, NULL, 0));
-            sprintf(userOutput, "Buffer resized to 0x%X / %d", bufferLength, bufferLength);
+            sprintf(userOutput, "Buffer resized to 0x%lX / %ld", bufferLength, bufferLength);
             bufferModified = 1;
         }
         else if (c == 'G')
@@ -968,7 +968,7 @@ void inputPopup(char * title)
     wrefresh(popupWin);
 
     echo();
-    getnstr(&userInput, POPUP_WIDTH - 2);
+    getnstr(userInput, POPUP_WIDTH - 2);
     noecho();
 }
 
