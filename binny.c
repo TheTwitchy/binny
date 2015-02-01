@@ -20,7 +20,7 @@
 #endif
 
 #define PROG_NAME 				"binny"
-#define VERSION 				"1.1"
+#define VERSION 				"1.2"
 #define NEW_FILE_BUFFER_SIZE	0x10
 
 #define BYTES_PER_LINE_DEFAULT 	0x10
@@ -974,7 +974,7 @@ void inputPopup(char * title)
 
 int saveBuffer()
 {
-    if (fp != NULL) close(fp);
+    if (fp != NULL) fclose(fp);
     fp = fopen(filename, "w+");
     if (fp == NULL)
     {
