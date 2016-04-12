@@ -3,7 +3,7 @@
 
 all:
 	@test -f /usr/include/curses.h || { echo "error: libncurses-dev is not installed"; exit 1; }
-	@gcc -Wall -o binny -lncurses binny.c
+	@gcc -Wall -o binny binny.c -lncurses
 
 install:
 	@mv ./binny /usr/bin/binny
