@@ -179,8 +179,7 @@ int parseOptions(int argc, char** argv)
         if (ch == 'h')
         {
 	    printHelp();
-            exit(EXIT_SUCCESS);
-        }
+            exit(EXIT_SUCCESS);        }
         else if (ch == 'l')
         {
             if (strtol(optarg, NULL, 0) == 0 || strtol(optarg, NULL, 0) < 1)
@@ -295,7 +294,10 @@ void attemptCleanExit(int status)
 {
     delwin(editorWin);
     endwin();
-    if (fp != NULL) fclose(fp);
+    if (fp != NULL) {
+	fclose(fp);
+        fp = NULL;
+    }
     free(buffer);
     exit(status);
 }
@@ -974,7 +976,12 @@ void inputPopup(char * title)
 
 int saveBuffer()
 {
-    if (fp != NULL) fclose(fp);
+    if (fp != NULL){
+	//sprintf(userOutput, "Error: File still open.");
+	//return -1;
+	fclose(fp);
+        fp = NULL;
+    }
     fp = fopen(filename, "w+");
     if (fp == NULL)
     {
@@ -983,6 +990,8 @@ int saveBuffer()
     }
     fseek(fp, 0, SEEK_SET); /* go to beginning of file*/
     fwrite(buffer, sizeof(unsigned char), bufferLength, fp);
+    fclose(fp);
+    fp = NULL;
     bufferModified = 0;
     sprintf(userOutput, "Buffer saved to %s", filename);
     return 0;
